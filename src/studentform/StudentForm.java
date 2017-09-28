@@ -5,6 +5,7 @@
  */
 package studentform;
 
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -21,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.text.MaskFormatter;
+
 
 /**
  *
@@ -45,6 +48,13 @@ public class StudentForm extends JFrame {
     private JFormattedTextField phoneField;
     private JFormattedTextField birthdayField;
     private ActionListener ActionListener;
+    private JLabel lblTotalMesseage;
+    private JLabel lblIdMesseage;
+    private JLabel lblMailMesseage;
+    private JLabel lblNameMesseage;
+    private JLabel lblPhonetMesseage;
+    private JLabel lblClassnameMesseage;
+    private JLabel lblBirthdayMesseage;
 
     public StudentForm() throws ParseException {
         this.setSize(800, 400);
@@ -56,6 +66,15 @@ public class StudentForm extends JFrame {
         this.lblPhone = new JLabel("Phone ");
         this.lblBirthday = new JLabel("Birthday ");
         this.lblEmail = new JLabel("Email ");
+
+        this.lblTotalMesseage = new JLabel();
+        this.lblIdMesseage = new JLabel();
+        this.lblMailMesseage = new JLabel();
+        this.lblNameMesseage = new JLabel();
+        this.lblPhonetMesseage = new JLabel();
+        this.lblClassnameMesseage = new JLabel();
+        this.lblBirthdayMesseage = new JLabel();
+
         this.txtIdstudent = new JTextField();
         this.txtEmail = new JTextField();
         this.txtName = new JTextField();
@@ -64,33 +83,41 @@ public class StudentForm extends JFrame {
         this.txtBirthday = new JTextField();
         this.btnSubmit = new JButton("Submit");
         this.panel = new JPanel();
-        this.panel.setBounds(100, 30, 600, 300);
+        this.panel.setBounds(100, 30, 800, 400);
         this.panel.setVisible(true);
         this.panel.setLayout(null);
         this.panel.setBackground(Color.lightGray);
 
-        this.lblIdstudent.setBounds(50, 10, 150, 40);
-        this.lblName.setBounds(50, 50, 150, 40);
-        this.lblClassname.setBounds(50, 90, 150, 40);
-        this.lblPhone.setBounds(50, 130, 150, 40);
-        this.lblBirthday.setBounds(50, 170, 150, 40);
-        this.lblEmail.setBounds(50, 210, 150, 40);
+        this.lblTotalMesseage.setBounds(50, 290, 300, 40);
+        this.lblIdMesseage.setBounds(360, 10, 300, 40);
+        this.lblMailMesseage.setBounds(360, 210, 300, 40);
+        this.lblNameMesseage.setBounds(360, 50, 300, 40);
+        this.lblPhonetMesseage.setBounds(360, 130, 300, 40);
+        this.lblClassnameMesseage.setBounds(360, 90, 300, 40);
+        this.lblBirthdayMesseage.setBounds(360, 170, 300, 40);
 
-        this.txtIdstudent.setBounds(200, 20, 200, 20);
-        this.txtName.setBounds(200, 60, 200, 20);
-        this.txtClassname.setBounds(200, 100, 200, 20);
+        this.lblIdstudent.setBounds(50, 10, 100, 40);
+        this.lblName.setBounds(50, 50, 100, 40);
+        this.lblClassname.setBounds(50, 90, 100, 40);
+        this.lblPhone.setBounds(50, 130, 100, 40);
+        this.lblBirthday.setBounds(50, 170, 100, 40);
+        this.lblEmail.setBounds(50, 210, 100, 40);
+
+        this.txtIdstudent.setBounds(150, 20, 200, 20);
+        this.txtName.setBounds(150, 60, 200, 20);
+        this.txtClassname.setBounds(150, 100, 200, 20);
 //        this.txtPhone.setBounds(200, 140, 200, 20);
 //        this.txtBirthday.setBounds(200, 180, 200, 20);
-        this.txtEmail.setBounds(200, 220, 200, 20);
+        this.txtEmail.setBounds(150, 220, 200, 20);
 
         this.btnSubmit.setBounds(250, 255, 100, 30);
         this.btnSubmit.addActionListener(new btnSubmitHandle());
         this.phoneField = new JFormattedTextField(new MaskFormatter("+84##########"));
-        this.phoneField.setBounds(200, 140, 200, 20);
+        this.phoneField.setBounds(150, 140, 200, 20);
         panel.add(phoneField);
 
         this.birthdayField = new JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"));
-        this.birthdayField.setBounds(200, 180, 200, 20);
+        this.birthdayField.setBounds(150, 180, 200, 20);
 
         panel.add(birthdayField);
 
@@ -107,6 +134,14 @@ public class StudentForm extends JFrame {
         panel.add(txtPhone);
         panel.add(txtClassname);
         panel.add(btnSubmit);
+
+        panel.add(lblBirthdayMesseage);
+        panel.add(lblTotalMesseage);
+        panel.add(lblClassnameMesseage);
+        panel.add(lblIdMesseage);
+        panel.add(lblPhonetMesseage);
+        panel.add(lblMailMesseage);
+        panel.add(lblNameMesseage);
         this.add(panel);
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -116,17 +151,102 @@ public class StudentForm extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-//            int i = StudentForm.showConfirmDialog(this,"Do you want to insert this record into database?","Comfirm Dialog Demo",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-//			if (i==0)  // neu nguoi dung chon "Yes"
-            int i;
-            i = JOptionPane.showConfirmDialog(null, "Sub thành công tài khoản :" + txtName.getText() + "Id :" + txtIdstudent.getText() + "Phone :" + phoneField.getText() + "Birthday :" + birthdayField.getText(), "Comfirm Dialog Demo", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (i == 0) // neu nguoi dung chon "Yes"
-            {
+            String name = txtName.getText();
+            String phone = phoneField.getText();
+            String mail = txtEmail.getText();
+            String id = txtIdstudent.getText();
+            String classname = txtClassname.getText();
+            String birthday = birthdayField.getText();
+            HashMap<String, String> erros = new StudentHandle().validateLogin(name, phone, mail, id, classname, birthday);
+            if (erros.size() == 0) {
 
-                JOptionPane.showMessageDialog(null, "Thành Công", "Message Dialog Demo", JOptionPane.INFORMATION_MESSAGE);
+                resetMessage();
+
+                
+            } else {
+                showError(erros);
             }
-
+//            int i;
+//            i = JOptionPane.showConfirmDialog(null, "Sub thành công tài khoản :" + txtName.getText() + "Id :" + txtIdstudent.getText() + "Phone :" + phoneField.getText() + "Birthday :" + birthdayField.getText(), "Comfirm Dialog Demo", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+//            if (i == 0) // neu nguoi dung chon "Yes"
+//            {
+//
+//                JOptionPane.showMessageDialog(null, "Thành Công", "Message Dialog Demo", JOptionPane.INFORMATION_MESSAGE);
+//            }
         }
+
+    }
+//
+
+    public void resetMessage() {
+        lblTotalMesseage.setText("");
+        lblBirthdayMesseage.setText("");
+        lblPhonetMesseage.setText("");
+        lblClassnameMesseage.setText("");
+        lblIdMesseage.setText("");
+        lblMailMesseage.setText("");
+        lblNameMesseage.setText("");
+    }
+
+    public void showError(HashMap<String, String> erros) {
+        lblTotalMesseage.setForeground(Color.red);
+        lblTotalMesseage.setText("Vui long sua thong tin");
+        if (erros.containsKey("txtId")) {
+
+            lblIdMesseage.setForeground(Color.red);
+            lblIdMesseage.setText(erros.get("txtId"));
+
+        } else {
+            lblIdMesseage.setForeground(Color.green);
+            lblIdMesseage.setText("hop le");
+        }
+        if (erros.containsKey("txtName")) {
+
+            lblNameMesseage.setForeground(Color.red);
+            lblNameMesseage.setText(erros.get("txtName"));
+
+        } else {
+            lblNameMesseage.setForeground(Color.green);
+            lblNameMesseage.setText("hop le");
+        }
+        if (erros.containsKey("txtMail")) {
+
+            lblMailMesseage.setForeground(Color.red);
+            lblMailMesseage.setText(erros.get("txtMail"));
+
+        } else {
+            lblMailMesseage.setForeground(Color.green);
+            lblMailMesseage.setText("hop le");
+        }
+
+        if (erros.containsKey("txtPhone")) {
+
+            lblPhonetMesseage.setForeground(Color.red);
+            lblPhonetMesseage.setText(erros.get("txtPhone"));
+
+        } else {
+            lblPhonetMesseage.setForeground(Color.green);
+            lblPhonetMesseage.setText("Mời bạn kiểm tra lại SDT");
+        }
+        if (erros.containsKey("txtClassname")) {
+
+            lblClassnameMesseage.setForeground(Color.red);
+            lblClassnameMesseage.setText(erros.get("txtClassname"));
+
+        } else {
+            lblClassnameMesseage.setForeground(Color.green);
+            lblClassnameMesseage.setText("hop le");
+        }
+          if (erros.containsKey("txtBirthday")) {
+
+            lblBirthdayMesseage.setForeground(Color.red);
+            lblBirthdayMesseage.setText(erros.get("txtBirthday"));
+
+        } else {
+            lblBirthdayMesseage.setForeground(Color.green);
+            lblBirthdayMesseage.setText("hop le");
+        }
+ 
 
     }
 
